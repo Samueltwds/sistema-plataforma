@@ -1,0 +1,205 @@
+body {
+  margin: 0;
+  background-color: #cad1e3;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #ffffff;
+}
+
+/* HEADER */
+.header {
+  background-color: #ff7300;
+  text-align: center;
+  padding: 20px;
+}
+
+/* TELA INICIAL */
+.inicio-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  padding: 20px;
+}
+
+.modelos {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* AÇÕES */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* BOTÕES */
+button {
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-verde {
+  background-color: #2E7D32;
+  color: white;
+  border: none;
+}
+
+.btn-laranja {
+  background-color: #F4B183;
+  border: 1px solid #000;
+}
+
+/* CALENDÁRIO */
+.calendario-container {
+  padding: 20px;
+}
+
+.faixa-modelo {
+  background-color: #ff6f00;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.grid-calendario {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.dia {
+  border: 1px solid #000;
+  padding: 20px;
+  text-align: center;
+}
+
+.dia.reservado {
+  background-color: #C00000;
+  color: white;
+}
+
+/* FORMULÁRIO */
+.formulario {
+  padding: 20px;
+}
+
+.aviso {
+  background-color: #FCE4D6;
+  padding: 10px;
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-bottom: 10px;
+}
+
+.linha input {
+  padding: 6px;
+}
+
+/* VOLTAR */
+.barra-voltar {
+  padding: 10px 20px;
+}
+
+.btn-voltar {
+  background-color: #F4B183;
+  border: 1px solid #000;
+}
+
+/* RODAPÉ */
+.acoes-rodape {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.btn-grande {
+  width: 100%;
+  font-size: 18px;
+}
+/* ===== FORMULÁRIO ESTILO EXCEL ===== */
+
+.formulario {
+  padding: 20px;
+}
+
+.aviso {
+  background-color: #FCE4D6;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.modelo-info {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Grid estilo planilha */
+.form-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  border: 1px solid #000;
+}
+
+/* Coluna esquerda (rótulos) */
+.form-grid .label {
+  background-color: #F8CBAD;
+  border: 1px solid #000;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Coluna direita (inputs) */
+.form-grid .campo {
+  background-color: #FDE9D9;
+  border: 1px solid #000;
+  padding: 6px;
+}
+
+.form-grid input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #666;
+}
+
+/* Botão final */
+.btn-solicitar {
+  margin-top: 15px;
+  width: 100%;
+  background-color: #70AD47;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 12px;
+  cursor: pointer;
+}
+.footer {
+  max-width: 1200px;
+  margin: 20px auto;
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+  padding: 10px;
+}
