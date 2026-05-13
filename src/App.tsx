@@ -258,6 +258,21 @@ export default function App() {
                     <option value="Ailton Gonçalves Do Carmo Junio - UPTEC">Ailton Gonçalves Do Carmo Junio - UPTEC</option>
                     <option value="Alex Gilsomar Soares - VSB (Ponte)">Alex Gilsomar Soares - VSB (Ponte)</option>
                     <option value="Augusto Cesar de Souza Ferreira - Caesa Vertical">Augusto Cesar de Souza Ferreira - Caesa Vertical</option>
+                    <option value="Breno Cirilo Diniz Carvalho - Rocket">Breno Cirilo Diniz Carvalho - Rocket</option>
+                    <option value="Carlos Alexandre Oliveira - HTG">Carlos Alexandre Oliveira - HTG</option>
+                    <option value="Cléber Antônio Reis Silva - VSB">Cléber Antônio Reis Silva - VSB</option>
+                    <option value="Dadson Dias Oliveira - UPTEC">Dadson Dias Oliveira - UPTEC</option>
+                    <option value="David Santos Vicente - VSB (Ponte)">David Santos Vicente - VSB (Ponte)</option>
+                    <option value="Deivisson Flaviano Lopes - VSB (Energ-Util)">Deivisson Flaviano Lopes - VSB (Energ-Util)</option>
+                    <option value="Diego Pereira de Souza - MEC">Diego Pereira de Souza - MEC</option>
+                    <option value="Edmar Antônio Assis - OPUS (Eletrica)">Edmar Antônio Assis - OPUS (Eletrica)</option>
+                    <option value="Ednaldo José Vieira - Progen">Ednaldo José Vieira - Progen</option>
+                    <option value="Ednilson Conceição Barbosa - MEC">Ednilson Conceição Barbosa - MEC</option>
+                    <option value="Edno Soares da Silva - Napoli">Edno Soares da Silva - Napoli</option>
+                    <option value="Edson Mariano da Cunha Junior - VSB">Edson Mariano da Cunha Junior - VSB</option>
+                    <option value="Euder Eustáqui Godoi Junior - Rocket">Euder Eustáqui Godoi Junior - Rocket</option>
+                    <option value="Fernando José Miranda - MEC">Fernando José Miranda - MEC</option>
+                    <option value="Fernando Rodrigues dos Santos - HTG">Fernando Rodrigues dos Santos - HTG</option>
                   </select>
                 </div>
 
