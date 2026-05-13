@@ -253,9 +253,11 @@ export default function App() {
                 <div className="campo">
                   <select value={operador} onChange={e => setOperador(e.target.value)}>
                     <option value="">Selecione o operador</option>
-                    <option value="João Silva">João Silva</option>
-                    <option value="Carlos Souza">Carlos Souza</option>
-                    <option value="Empresa XYZ">Empresa XYZ</option>
+                    <option value="Adelmo Ricardo dos Santos - VSB">Adelmo Ricardo dos Santos - VSB</option>
+                    <option value="Adriano Paixão de Souza - Progen">Adriano Paixão de Souza - Progen</option>
+                    <option value="Ailton Gonçalves Do Carmo Junio - UPTEC">Ailton Gonçalves Do Carmo Junio - UPTEC</option>
+                    <option value="Alex Gilsomar Soares - VSB (Ponte)">Alex Gilsomar Soares - VSB (Ponte)</option>
+                    <option value="Augusto Cesar de Souza Ferreira - Caesa Vertical">Augusto Cesar de Souza Ferreira - Caesa Vertical</option>
                   </select>
                 </div>
 
