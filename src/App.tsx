@@ -32,6 +32,7 @@ export default function App() {
     const prefixo = modeloSelecionado.replace(/\s|–/g, "");
     const numero =
       programacoes.filter(p => p.modelo === modeloSelecionado).length + 1;
+
     return `${prefixo}-${String(numero).padStart(4, "0")}`;
   }
 
@@ -70,6 +71,7 @@ export default function App() {
     });
 
     alert(`✅ Reserva realizada!\nID: ${id}`);
+
     carregarProgramacoes();
   }
 
@@ -176,10 +178,35 @@ export default function App() {
 
             <div className="inicio-grid">
 
-              <div className="modelos"></div>
+              <div className="modelos">
+
+                <div className="card">
+                  https://cdn.corenexis.com/files/c/2338645720.png
+                  <h3>800 AJ – 26 METROS</h3>
+                  <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
+                    SOLICITAR
+                  </button>
+                </div>
+
+                <div className="card">
+                  https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob
+                  <h3>Z45 – 16 METROS</h3>
+                  <button className="btn-verde" onClick={() => setModelo("Z45 – 16 METROS")}>
+                    SOLICITAR
+                  </button>
+                </div>
+
+              </div>
 
               <div className="acoes">
-                <button onClick={() => setTela("formulario")}>
+                <p><strong>MODELO SELECIONADO</strong></p>
+                <p>{modelo || "Nenhum"}</p>
+
+                <button className="btn-laranja" disabled={!modelo} onClick={() => setTela("calendario")}>
+                  VISUALIZAR CALENDÁRIO
+                </button>
+
+                <button className="btn-laranja" disabled={!modelo} onClick={() => setTela("formulario")}>
                   SOLICITAR MODELO
                 </button>
               </div>
@@ -194,7 +221,17 @@ export default function App() {
               <h1>SOLICITAR PLATAFORMA FIXA</h1>
             </div>
 
+            <div className="barra-voltar">
+              <button className="btn-voltar" onClick={() => setTela("inicio")}>
+                ← VOLTAR
+              </button>
+            </div>
+
             <div className="formulario">
+
+              <div className="aviso">
+                Para solicitar a plataforma é necessário preencher todos os itens abaixo corretamente.
+              </div>
 
               <div className="modelo-info">
                 <strong>MODELO SELECIONADO:</strong> {modelo}
@@ -202,27 +239,51 @@ export default function App() {
 
               <div className="form-grid">
 
+                <div className="label">DATAS DA ATIVIDADE</div>
+                <div className="campo">
+                  <input type="date" onChange={e => setDataAtividade(e.target.value)} />
+                </div>
+
+                <div className="label">ATIVIDADE DETALHADA</div>
+                <div className="campo">
+                  <input onChange={e => setAtividade(e.target.value)} />
+                </div>
+
                 <div className="label">OPERADOR E EMPRESA</div>
                 <div className="campo">
-
                   <select value={operador} onChange={e => setOperador(e.target.value)}>
                     <option value="">Selecione o operador</option>
-
-                    <option value="Adelmo Ricardo dos Santos - VSB">Adelmo Ricardo dos Santos - VSB</option>
-                    <option value="Adriano Paixão de Souza - Progen">Adriano Paixão de Souza - Progen</option>
-                    <option value="Ailton Gonçalves Do Carmo Junior - UPTEC">Ailton Gonçalves Do Carmo Junior - UPTEC</option>
-                    <option value="Alex Gilsom Soares - VSB (Ponte)">Alex Gilsom Soares - VSB (Ponte)</option>
-                    <option value="Augusto Cesar de Souza Ferreira - Caesa Vertical">Augusto Cesar de Souza Ferreira - Caesa Vertical</option>
-                    <option value="Breno Cirilo Diniz Carvalho - Rocket">Breno Cirilo Diniz Carvalho - Rocket</option>
-                    <option value="Carlos Alexandre Oliveira - HTG">Carlos Alexandre Oliveira - HTG</option>
-                    <option value="Cleber Antônio Reis Silva - VSB">Cleber Antônio Reis Silva - VSB</option>
-                    <option value="Dadson Dias Oliveira - UPTEC">Dadson Dias Oliveira - UPTEC</option>
-                    <option value="Edno Soares da Silva - Napoli">Edno Soares da Silva - Napoli</option>
+                    <option value="João Silva">João Silva</option>
+                    <option value="Carlos Souza">Carlos Souza</option>
+                    <option value="Empresa XYZ">Empresa XYZ</option>
                   </select>
+                </div>
 
+                <div className="label">RESPONSÁVEL / SOLICITANTE</div>
+                <div className="campo">
+                  <input onChange={e => setResponsavel(e.target.value)} />
+                </div>
+
+                <div className="label">ÁREA DO RESPONSÁVEL</div>
+                <div className="campo">
+                  <input onChange={e => setAreaResponsavel(e.target.value)} />
+                </div>
+
+                <div className="label">ÁREA E LOCAL DA ATIVIDADE</div>
+                <div className="campo">
+                  <input onChange={e => setLocalAtividade(e.target.value)} />
+                </div>
+
+                <div className="label">PEP / ORDEM</div>
+                <div className="campo">
+                  <input onChange={e => setPep(e.target.value)} />
                 </div>
 
               </div>
+
+              <button className="btn-solicitar" onClick={confirmarSolicitacao}>
+                SOLICITAR
+              </button>
 
             </div>
           </>
@@ -231,6 +292,14 @@ export default function App() {
         {tela === "calendario" && renderCalendario()}
         {tela === "programacoes" && renderProgramacoes()}
 
+      </div>
+
+      <div className="footer">
+        <p>Desenvolvido por: Samuel Braga</p>
+        <p>
+          Em caso de dúvidas: Mattheus Simões – Cel.: 31 9660-7206 /
+          Samuel Braga – 31 97314-3884
+        </p>
       </div>
     </>
   );
