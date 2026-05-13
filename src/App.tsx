@@ -78,7 +78,6 @@ export default function App() {
     alert(`✅ Reserva realizada!\nID: ${id}`);
 
     carregarProgramacoes();
-    setTela("calendario");
   }
 
   // ✅ CALENDÁRIO
