@@ -17,13 +17,10 @@ export default function App() {
 
   const [programacoes, setProgramacoes] = useState<any[]>([]);
 
-  // ✅ CARREGAR FIREBASE
   async function carregarProgramacoes() {
     const snapshot = await getDocs(collection(db, "programacoes"));
     const lista: any[] = [];
-
     snapshot.forEach(doc => lista.push(doc.data()));
-
     setProgramacoes(lista);
   }
 
@@ -31,7 +28,6 @@ export default function App() {
     carregarProgramacoes();
   }, []);
 
-  // ✅ GERAR ID
   function gerarID(modeloSelecionado: string) {
     const prefixo = modeloSelecionado.replace(/\s|–/g, "");
     const numero =
@@ -40,7 +36,6 @@ export default function App() {
     return `${prefixo}-${String(numero).padStart(4, "0")}`;
   }
 
-  // ✅ SALVAR
   async function confirmarSolicitacao() {
     if (
       !modelo || !dataAtividade || !atividade ||
@@ -80,7 +75,6 @@ export default function App() {
     carregarProgramacoes();
   }
 
-  // ✅ CALENDÁRIO
   function renderCalendario() {
     const dias = 31;
 
@@ -126,7 +120,6 @@ export default function App() {
     );
   }
 
-  // ✅ PROGRAMAÇÕES ID (TABELA)
   function renderProgramacoes() {
     return (
       <>
@@ -176,7 +169,6 @@ export default function App() {
     <>
       <div className="app">
 
-        {/* ===== INICIO ===== */}
         {tela === "inicio" && (
           <>
             <div className="header">
@@ -223,7 +215,6 @@ export default function App() {
           </>
         )}
 
-        {/* ===== FORMULÁRIO ===== */}
         {tela === "formulario" && (
           <>
             <div className="header">
@@ -260,7 +251,12 @@ export default function App() {
 
                 <div className="label">OPERADOR E EMPRESA</div>
                 <div className="campo">
-                  <input onChange={e => setOperador(e.target.value)} />
+                  <select value={operador} onChange={e => setOperador(e.target.value)}>
+                    <option value="">Selecione o operador</option>
+                    <option value="João Silva">João Silva</option>
+                    <option value="Carlos Souza">Carlos Souza</option>
+                    <option value="Empresa XYZ">Empresa XYZ</option>
+                  </select>
                 </div>
 
                 <div className="label">RESPONSÁVEL / SOLICITANTE</div>
@@ -298,7 +294,6 @@ export default function App() {
 
       </div>
 
-      {/* ✅ RODAPÉ */}
       <div className="footer">
         <p>Desenvolvido por: Samuel Braga</p>
         <p>
