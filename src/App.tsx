@@ -189,7 +189,7 @@ export default function App() {
               </div>
 
                 <div className="card">
-                  <img src="https://cdn.corenexis.com/files/c/2338645720.png" />
+                  <img src="https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob" />
                   <h3>Z45 – 16 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("Z45 – 16 METROS")}>
                     SOLICITAR
