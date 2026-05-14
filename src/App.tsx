@@ -137,7 +137,7 @@ export default function App() {
               <th>RESPONSÁVEL</th>
               <th>ÁREA</th>
               <th>LOCAL</th>
-              <th>PEP</th>
+              <th>ORDEM / PEP</th>
             </tr>
           </thead>
           <tbody>
