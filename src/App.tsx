@@ -14,6 +14,7 @@ export default function App() {
   const [areaResponsavel, setAreaResponsavel] = useState("");
   const [localAtividade, setLocalAtividade] = useState("");
   const [pep, setPep] = useState("");
+  const [turno, setTurno] = useState(""); // ✅ NOVO
 
   const [programacoes, setProgramacoes] = useState<any[]>([]);
 
@@ -40,18 +41,21 @@ export default function App() {
     if (
       !modelo || !dataAtividade || !atividade ||
       !operador || !responsavel ||
-      !areaResponsavel || !localAtividade || !pep
+      !areaResponsavel || !localAtividade || !pep || !turno
     ) {
       alert("Preencha todos os campos.");
       return;
     }
 
     const conflito = programacoes.some(
-      p => p.modelo === modelo && p.dataAtividade === dataAtividade
+      p =>
+        p.modelo === modelo &&
+        p.dataAtividade === dataAtividade &&
+        p.turno === turno
     );
 
     if (conflito) {
-      alert("⚠ Data já reservada!");
+      alert("⚠ Data já reservada para esse turno!");
       return;
     }
 
@@ -67,6 +71,7 @@ export default function App() {
       areaResponsavel,
       localAtividade,
       pep,
+      turno, // ✅ NOVO
       criadoEm: new Date()
     });
 
@@ -75,9 +80,39 @@ export default function App() {
     carregarProgramacoes();
   }
 
-  function renderCalendario() {
+  // ✅ CALENDÁRIO POR TURNO
+  function renderCalendarioPorTurno(nomeTurno: string) {
     const dias = 31;
 
+    return (
+      <div>
+        <h3 style={{ marginTop: "20px" }}>{nomeTurno}</h3>
+
+        <div className="grid-calendario">
+          {Array.from({ length: dias }, (_, i) => {
+            const dia = i + 1;
+            const data = `2026-05-${String(dia).padStart(2, "0")}`;
+
+            const reserva = programacoes.find(
+              p =>
+                p.modelo === modelo &&
+                p.dataAtividade === data &&
+                p.turno === nomeTurno
+            );
+
+            return (
+              <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
+                {dia}/05
+                {reserva && <div>RESERVADO</div>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  function renderCalendario() {
     return (
       <>
         <div className="header">
@@ -86,25 +121,13 @@ export default function App() {
         </div>
 
         <div className="calendario-container">
+
           <div className="faixa-modelo">{modelo}</div>
 
-          <div className="grid-calendario">
-            {Array.from({ length: dias }, (_, i) => {
-              const dia = i + 1;
-              const data = `2026-05-${String(dia).padStart(2, "0")}`;
+          {renderCalendarioPorTurno("Turno 1")}
+          {renderCalendarioPorTurno("Turno 2")}
+          {renderCalendarioPorTurno("Turno 3")}
 
-              const reserva = programacoes.find(
-                p => p.modelo === modelo && p.dataAtividade === data
-              );
-
-              return (
-                <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                  {dia}/05
-                  {reserva && <div>RESERVADO</div>}
-                </div>
-              );
-            })}
-          </div>
         </div>
 
         <div className="acoes-rodape">
@@ -137,7 +160,8 @@ export default function App() {
               <th>RESPONSÁVEL</th>
               <th>ÁREA</th>
               <th>LOCAL</th>
-              <th>ORDEM / PEP</th>
+              <th>PEP</th>
+              <th>TURNO</th> {/* ✅ NOVO */}
             </tr>
           </thead>
           <tbody>
@@ -151,6 +175,7 @@ export default function App() {
                 <td>{p.areaResponsavel}</td>
                 <td>{p.localAtividade}</td>
                 <td>{p.pep}</td>
+                <td>{p.turno}</td> {/* ✅ NOVO */}
               </tr>
             ))}
           </tbody>
@@ -181,15 +206,15 @@ export default function App() {
               <div className="modelos">
 
                 <div className="card">
-                <img src="https://cdn.corenexis.com/files/c/2338645720.png" />
-                <h3>800 AJ – 26 METROS</h3>
-                <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
-                  SOLICITAR
-                </button>
-              </div>
+                  https://cdn.corenexis.com/files/c/2338645720.png
+                  <h3>800 AJ – 26 METROS</h3>
+                  <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
+                    SOLICITAR
+                  </button>
+                </div>
 
                 <div className="card">
-                  <img src="https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob" />
+                  https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob
                   <h3>Z45 – 16 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("Z45 – 16 METROS")}>
                     SOLICITAR
@@ -238,6 +263,17 @@ export default function App() {
               </div>
 
               <div className="form-grid">
+
+                {/* ✅ NOVO CAMPO TURNO */}
+                <div className="label">TURNO</div>
+                <div className="campo">
+                  <select value={turno} onChange={e => setTurno(e.target.value)}>
+                    <option value="">Selecione o turno</option>
+                    <option value="Turno 1">Turno 1</option>
+                    <option value="Turno 2">Turno 2</option>
+                    <option value="Turno 3">Turno 3</option>
+                  </select>
+                </div>
 
                 <div className="label">DATAS DA ATIVIDADE</div>
                 <div className="campo">
