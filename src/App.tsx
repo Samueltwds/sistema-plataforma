@@ -124,9 +124,9 @@ export default function App() {
 
           <div className="faixa-modelo">{modelo}</div>
 
-          {renderCalendarioPorTurno("Turno 1")}
-          {renderCalendarioPorTurno("Turno 2")}
-          {renderCalendarioPorTurno("Turno 3")}
+          {renderCalendarioPorTurno("Turno 1 - Horário do turno 00:04 as 07:56")}
+          {renderCalendarioPorTurno("Turno 2 - Horário do turno 7:45 as 16:15")}
+          {renderCalendarioPorTurno("Turno 3 - Horário do turbo 16:04 as 00:15")}
 
         </div>
 
