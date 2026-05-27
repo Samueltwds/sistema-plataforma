@@ -40,7 +40,7 @@ export default function App() {
   async function confirmarSolicitacao() {
     // ✅ VALIDAÇÃO CORRIGIDA
     if (!modelo || !dataAtividade || !turno) {
-      alert("Preencha os campos obrigatórios (modelo, data e turno).");
+      alert("Preencha modelo, data e turno.");
       return;
     }
 
@@ -151,49 +151,80 @@ export default function App() {
     );
   }
 
-  function renderProgramacoes() {
+  // ✅ FORMULÁRIO COMPLETO (SEM REMOVER NADA)
+  function renderFormulario() {
     return (
       <>
         <div className="header">
-          <h1>PROGRAMAÇÕES ID</h1>
+          <h1>SOLICITAR PLATAFORMA FIXA</h1>
         </div>
 
-        <table border={1} width="100%">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>DATA</th>
-              <th>ATIVIDADE</th>
-              <th>OPERADOR</th>
-              <th>RESPONSÁVEL</th>
-              <th>ÁREA</th>
-              <th>LOCAL</th>
-              <th>PEP</th>
-              <th>TURNO</th>
-            </tr>
-          </thead>
-          <tbody>
-            {programacoes.map((p, i) => (
-              <tr key={i}>
-                <td>{p.id}</td>
-                <td>{p.dataAtividade}</td>
-                <td>{p.atividade}</td>
-                <td>{p.operador}</td>
-                <td>{p.responsavel}</td>
-                <td>{p.areaResponsavel}</td>
-                <td>{p.localAtividade}</td>
-                <td>{p.pep}</td>
-                <td>{p.turno}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="barra-voltar">
+          <button className="btn-voltar" onClick={() => setTela("inicio")}>
+            ← VOLTAR
+          </button>
+        </div>
 
-        <br />
+        <div className="formulario">
 
-        <button className="btn-laranja" onClick={() => setTela("inicio")}>
-          VOLTAR
-        </button>
+          <div className="modelo-info">
+            <strong>MODELO SELECIONADO:</strong> {modelo}
+          </div>
+
+          <div className="form-grid">
+
+            <div className="label">TURNO</div>
+            <div className="campo">
+              <select value={turno} onChange={e => setTurno(e.target.value)}>
+                <option value="">Selecione o turno</option>
+                <option value="Turno 1">Turno 1</option>
+                <option value="Turno 2">Turno 2</option>
+                <option value="Turno 3">Turno 3</option>
+              </select>
+            </div>
+
+            <div className="label">DATAS DA ATIVIDADE</div>
+            <div className="campo">
+              <input type="date" onChange={e => setDataAtividade(e.target.value)} />
+            </div>
+
+            <div className="label">ATIVIDADE DETALHADA</div>
+            <div className="campo">
+              <input onChange={e => setAtividade(e.target.value)} />
+            </div>
+
+            <div className="label">OPERADOR E EMPRESA</div>
+            <div className="campo">
+              <input onChange={e => setOperador(e.target.value)} />
+            </div>
+
+            <div className="label">RESPONSÁVEL</div>
+            <div className="campo">
+              <input onChange={e => setResponsavel(e.target.value)} />
+            </div>
+
+            <div className="label">ÁREA</div>
+            <div className="campo">
+              <input onChange={e => setAreaResponsavel(e.target.value)} />
+            </div>
+
+            <div className="label">LOCAL</div>
+            <div className="campo">
+              <input onChange={e => setLocalAtividade(e.target.value)} />
+            </div>
+
+            <div className="label">PEP</div>
+            <div className="campo">
+              <input onChange={e => setPep(e.target.value)} />
+            </div>
+
+          </div>
+
+          <button className="btn-solicitar" onClick={confirmarSolicitacao}>
+            SOLICITAR
+          </button>
+
+        </div>
       </>
     );
   }
@@ -248,53 +279,8 @@ export default function App() {
           </>
         )}
 
-        {tela === "formulario" && (
-          <>
-            <div className="header">
-              <h1>SOLICITAR PLATAFORMA FIXA</h1>
-            </div>
-
-            <div className="barra-voltar">
-              <button className="btn-voltar" onClick={() => setTela("inicio")}>
-                ← VOLTAR
-              </button>
-            </div>
-
-            <div className="formulario">
-
-              <div className="modelo-info">
-                <strong>MODELO SELECIONADO:</strong> {modelo}
-              </div>
-
-              <div className="form-grid">
-
-                <div className="label">TURNO</div>
-                <div className="campo">
-                  <select value={turno} onChange={e => setTurno(e.target.value)}>
-                    <option value="">Selecione o turno</option>
-                    <option value="Turno 1">Turno 1</option>
-                    <option value="Turno 2">Turno 2</option>
-                    <option value="Turno 3">Turno 3</option>
-                  </select>
-                </div>
-
-                <div className="label">DATAS DA ATIVIDADE</div>
-                <div className="campo">
-                  <input type="date" onChange={e => setDataAtividade(e.target.value)} />
-                </div>
-
-              </div>
-
-              <button className="btn-solicitar" onClick={confirmarSolicitacao}>
-                SOLICITAR
-              </button>
-
-            </div>
-          </>
-        )}
-
+        {tela === "formulario" && renderFormulario()}
         {tela === "calendario" && renderCalendario()}
-        {tela === "programacoes" && renderProgramacoes()}
 
       </div>
     </>
