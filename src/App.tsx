@@ -257,8 +257,6 @@ export default function App() {
                   <input type="date" onChange={e => setDataAtividade(e.target.value)} />
                 </div>
 
-                <!-- mudança aqui em cima -->
-
                 <div className="label">ATIVIDADE DETALHADA</div>
                 <div className="campo">
                   <input onChange={e => setAtividade(e.target.value)} />
