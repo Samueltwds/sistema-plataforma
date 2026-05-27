@@ -80,49 +80,101 @@ export default function App() {
   }
 
   function renderCalendario() {
-    const dias = 31;
+  const dias = 31;
 
-    return (
-      <>
-        <div className="header">
-          <h1>PROGRAMAÇÕES</h1>
-          <h2>MILLS</h2>
+  return (
+    <>
+      <div className="header">
+        <h1>PROGRAMAÇÕES</h1>
+        <h2>MILLS</h2>
+      </div>
+
+      <div className="calendario-container">
+        <div className="faixa-modelo">{modelo}</div>
+
+        {/* ✅ TURNO 1 */}
+        <h3>Turno 1</h3>
+        <div className="grid-calendario">
+          {Array.from({ length: dias }, (_, i) => {
+            const dia = i + 1;
+            const data = `2026-05-${String(dia).padStart(2, "0")}`;
+
+            const reserva = programacoes.find(
+              p =>
+                p.modelo === modelo &&
+                p.dataAtividade === data &&
+                p.turno === "Turno 1"
+            );
+
+            return (
+              <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
+                {dia}/05
+                {reserva && <div>RESERVADO</div>}
+              </div>
+            );
+          })}
         </div>
 
-        <div className="calendario-container">
-          <div className="faixa-modelo">{modelo}</div>
+        {/* ✅ TURNO 2 */}
+        <h3>Turno 2</h3>
+        <div className="grid-calendario">
+          {Array.from({ length: dias }, (_, i) => {
+            const dia = i + 1;
+            const data = `2026-05-${String(dia).padStart(2, "0")}`;
 
-          <div className="grid-calendario">
-            {Array.from({ length: dias }, (_, i) => {
-              const dia = i + 1;
-              const data = `2026-05-${String(dia).padStart(2, "0")}`;
+            const reserva = programacoes.find(
+              p =>
+                p.modelo === modelo &&
+                p.dataAtividade === data &&
+                p.turno === "Turno 2"
+            );
 
-              const reserva = programacoes.find(
-                p => p.modelo === modelo && p.dataAtividade === data
-              );
-
-              return (
-                <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                  {dia}/05
-                  {reserva && <div>RESERVADO</div>}
-                </div>
-              );
-            })}
-          </div>
+            return (
+              <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
+                {dia}/05
+                {reserva && <div>RESERVADO</div>}
+              </div>
+            );
+          })}
         </div>
 
-        <div className="acoes-rodape">
-          <button className="btn-laranja" onClick={() => setTela("inicio")}>
-            VOLTAR
-          </button>
+        {/* ✅ TURNO 3 */}
+        <h3>Turno 3</h3>
+        <div className="grid-calendario">
+          {Array.from({ length: dias }, (_, i) => {
+            const dia = i + 1;
+            const data = `2026-05-${String(dia).padStart(2, "0")}`;
 
-          <button className="btn-verde" onClick={() => setTela("programacoes")}>
-            PROGRAMAÇÕES ID
-          </button>
+            const reserva = programacoes.find(
+              p =>
+                p.modelo === modelo &&
+                p.dataAtividade === data &&
+                p.turno === "Turno 3"
+            );
+
+            return (
+              <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
+                {dia}/05
+                {reserva && <div>RESERVADO</div>}
+              </div>
+            );
+          })}
         </div>
-      </>
-    );
-  }
+
+      </div>
+
+      <div className="acoes-rodape">
+        <button className="btn-laranja" onClick={() => setTela("inicio")}>
+          VOLTAR
+        </button>
+
+        <button className="btn-verde" onClick={() => setTela("programacoes")}>
+          PROGRAMAÇÕES ID
+        </button>
+      </div>
+    </>
+  );
+}
 
   function renderProgramacoes() {
     return (
