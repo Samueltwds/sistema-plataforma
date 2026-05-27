@@ -1,4 +1,4 @@
-  import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "./firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import "./style.css";
@@ -14,7 +14,7 @@ export default function App() {
   const [areaResponsavel, setAreaResponsavel] = useState("");
   const [localAtividade, setLocalAtividade] = useState("");
   const [pep, setPep] = useState("");
-  const [turno, setTurno] = useState(""); // ✅ NOVO
+  const [turno, setTurno] = useState("");
 
   const [programacoes, setProgramacoes] = useState<any[]>([]);
 
@@ -71,18 +71,22 @@ export default function App() {
       areaResponsavel,
       localAtividade,
       pep,
-      turno, // aqui a pessoa vai selecionar o turno e muda automatico
+      turno,
       criadoEm: new Date()
     });
 
     alert(`✅ Reserva realizada!\nID: ${id}`);
-
     carregarProgramacoes();
   }
 
   // ✅ CALENDÁRIO POR TURNO
   function renderCalendarioPorTurno(nomeTurno: string) {
     const dias = 31;
+
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = hoje.getMonth() + 1;
+    const mesFormatado = String(mes).padStart(2, "0");
 
     return (
       <div>
@@ -91,7 +95,8 @@ export default function App() {
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
-            const data = `2026-05-${String(dia).padStart(2, "0")}`;
+
+            const data = `${ano}-${mesFormatado}-${String(dia).padStart(2, "0")}`;
 
             const reserva = programacoes.find(
               p =>
@@ -102,7 +107,7 @@ export default function App() {
 
             return (
               <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                {dia}/05
+                {dia}/{mesFormatado}
                 {reserva && <div>RESERVADO</div>}
               </div>
             );
@@ -124,9 +129,14 @@ export default function App() {
 
           <div className="faixa-modelo">{modelo}</div>
 
-          {renderCalendarioPorTurno("Turno 1 - Horário do turno 00:04 as 07:56")}
-          {renderCalendarioPorTurno("Turno 2 - Horário do turno 7:45 as 16:15")}
-          {renderCalendarioPorTurno("Turno 3 - Horário do turbo 16:04 as 00:15")}
+          <h3>Turno 1 - Horário do turno 00:04 às 07:56</h3>
+          {renderCalendarioPorTurno("Turno 1")}
+
+          <h3>Turno 2 - Horário do turno 07:45 às 16:15</h3>
+          {renderCalendarioPorTurno("Turno 2")}
+
+          <h3>Turno 3 - Horário do turno 16:04 às 00:15</h3>
+          {renderCalendarioPorTurno("Turno 3")}
 
         </div>
 
@@ -161,7 +171,7 @@ export default function App() {
               <th>ÁREA</th>
               <th>LOCAL</th>
               <th>PEP</th>
-              <th>TURNO</th> {/* ✅ NOVO */}
+              <th>TURNO</th>
             </tr>
           </thead>
           <tbody>
@@ -175,7 +185,7 @@ export default function App() {
                 <td>{p.areaResponsavel}</td>
                 <td>{p.localAtividade}</td>
                 <td>{p.pep}</td>
-                <td>{p.turno}</td> {/* ✅ NOVO */}
+                <td>{p.turno}</td>
               </tr>
             ))}
           </tbody>
@@ -206,7 +216,7 @@ export default function App() {
               <div className="modelos">
 
                 <div className="card">
-                  <img src= "https://cdn.corenexis.com/files/c/2338645720.png" />
+                  <img src="https://cdn.corenexis.com/files/c/2338645720.png" />
                   <h3>800 AJ – 26 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
                     SOLICITAR
@@ -214,7 +224,7 @@ export default function App() {
                 </div>
 
                 <div className="card">
-                  <img src= "https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob" />
+                  <img src="https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob" />
                   <h3>Z45 – 16 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("Z45 – 16 METROS")}>
                     SOLICITAR
@@ -254,17 +264,12 @@ export default function App() {
 
             <div className="formulario">
 
-              <div className="aviso">
-                Para solicitar a plataforma é necessário preencher todos os itens abaixo corretamente.
-              </div>
-
               <div className="modelo-info">
                 <strong>MODELO SELECIONADO:</strong> {modelo}
               </div>
 
               <div className="form-grid">
 
-                {/* ✅ NOVO CAMPO TURNO */}
                 <div className="label">TURNO</div>
                 <div className="campo">
                   <select value={turno} onChange={e => setTurno(e.target.value)}>
@@ -280,101 +285,6 @@ export default function App() {
                   <input type="date" onChange={e => setDataAtividade(e.target.value)} />
                 </div>
 
-                <div className="label">ATIVIDADE DETALHADA</div>
-                <div className="campo">
-                  <input onChange={e => setAtividade(e.target.value)} />
-                </div>
-
-                <div className="label">OPERADOR E EMPRESA</div>
-                <div className="campo">
-                  <select value={operador} onChange={e => setOperador(e.target.value)}>
-                    <option value="">Selecione o operador. Caso haja mais de um, favor informar todos os nomes no e-mail de confirmação da programação.</option>
-                    <option value="Adelmo Ricardo dos Santos - VSB">Adelmo Ricardo dos Santos - VSB</option>
-                    <option value="Adriano Paixão de Souza - Progen">Adriano Paixão de Souza - Progen</option>
-                    <option value="Ailton Gonçalves Do Carmo Junio - UPTEC">Ailton Gonçalves Do Carmo Junio - UPTEC</option>
-                    <option value="Alex Gilsomar Soares - VSB (Ponte)">Alex Gilsomar Soares - VSB (Ponte)</option>
-                    <option value="Augusto Cesar de Souza Ferreira - Caesa Vertical">Augusto Cesar de Souza Ferreira - Caesa Vertical</option>
-                    <option value="Breno Cirilo Diniz Carvalho - Rocket">Breno Cirilo Diniz Carvalho - Rocket</option>
-                    <option value="Carlos Alexandre Oliveira - HTG">Carlos Alexandre Oliveira - HTG</option>
-                    <option value="Cléber Antônio Reis Silva - VSB">Cléber Antônio Reis Silva - VSB</option>
-                    <option value="Dadson Dias Oliveira - UPTEC">Dadson Dias Oliveira - UPTEC</option>
-                    <option value="David Santos Vicente - VSB (Ponte)">David Santos Vicente - VSB (Ponte)</option>
-                    <option value="Deivisson Flaviano Lopes - VSB (Energ-Util)">Deivisson Flaviano Lopes - VSB (Energ-Util)</option>
-                    <option value="Diego Pereira de Souza - MEC">Diego Pereira de Souza - MEC</option>
-                    <option value="Edmar Antônio Assis - OPUS (Eletrica)">Edmar Antônio Assis - OPUS (Eletrica)</option>
-                    <option value="Ednaldo José Vieira - Progen">Ednaldo José Vieira - Progen</option>
-                    <option value="Ednilson Conceição Barbosa - MEC">Ednilson Conceição Barbosa - MEC</option>
-                    <option value="Edno Soares da Silva - Napoli">Edno Soares da Silva - Napoli</option>
-                    <option value="Edson Mariano da Cunha Junior - VSB">Edson Mariano da Cunha Junior - VSB</option>
-                    <option value="Euder Eustáqui Godoi Junior - Rocket">Euder Eustáqui Godoi Junior - Rocket</option>
-                    <option value="Fernando José Miranda - MEC">Fernando José Miranda - MEC</option>
-                    <option value="Fernando Rodrigues dos Santos - HTG">Fernando Rodrigues dos Santos - HTG</option>
-                    <option value="Gabriel da Silva Hilbert - MEC">Gabriel da Silva Hilbert - MEC</option>
-                    <option value="Gabriel Henrique de Amorim dos Santos - UPTEC">Gabriel Henrique de Amorim dos Santos - UPTEC</option>
-                    <option value="Gabriel Pereira Rocha - OPUS (Refrigeração)">Gabriel Pereira Rocha - OPUS (Refrigeração)</option>
-                    <option value="Gabriel Victor Silva Reis - UPTEC">Gabriel Victor Silva Reis - UPTEC</option>
-                    <option value="Gilmar Gregorio de Melo - VSB (Ponte)">Gilmar Gregorio de Melo - VSB (Ponte)</option>
-                    <option value="Gilson Seabra Ribeiro - HTG">Gilson Seabra Ribeiro - HTG</option>
-                    <option value="Girlanti Ramos Martins - UPTEC">Girlanti Ramos Martins - UPTEC</option>
-                    <option value="Guilherme Alves Ribeiro - VSB">Guilherme Alves Ribeiro - VSB</option>
-                    <option value="Guilherme Pereira Ferreira - Rocket">Guilherme Pereira Ferreira - Rocket</option>
-                    <option value="Israel de Almeida - Caesa Vertical">Israel de Almeida - Caesa Vertical</option>
-                    <option value="Jader Martins da Costa - Caesa Vertical">Jader Martins da Costa - Caesa Vertical</option>
-                    <option value="Jhonatan Alves Costa - Progen">Jhonatan Alves Costa - Progen</option>
-                    <option value="João Marcos Leite dos Santos - MEC">João Marcos Leite dos Santos - MEC</option>
-                    <option value="Lincoln José da Silva Costa - VSB (Of. Central)">Lincoln José da Silva Costa - VSB (Of. Central)</option>
-                    <option value="Luciano Cirino de Almeida - VSB (Ponte)">Luciano Cirino de Almeida - VSB (Ponte)</option>
-                    <option value="Luiz Gustavo Ferreira - Rocket">Luiz Gustavo Ferreira - Rocket</option>
-                    <option value="Natanael Moreira - Progen">Natanael Moreira - Progen</option>
-                    <option value="Pablo Henrique Gonçalves Rocha - UPTEC">Pablo Henrique Gonçalves Rocha - UPTEC</option>
-                    <option value="Paulo Henrique Moreira Guimaraes - Napoli">Paulo Henrique Moreira Guimaraes - Napoli</option>
-                    <option value="Paulo Roberto - Caesa Vertical">Paulo Roberto - Caesa Vertical</option>
-                    <option value="Philipe Trindade Silva  - OPUS (Refrigeração)">Philipe Trindade Silva  - OPUS (Refrigeração)</option>
-                    <option value="Rafael de Jesus Silva - HTG">Rafael de Jesus Silva - HTG</option>
-                    <option value="Ramon Mota Rodrigues - VSB (Ponte)">Ramon Mota Rodrigues - VSB (Ponte)</option>
-                    <option value="Roberto Ferreira de Azevedo - OPUS (Areas Verdes)">Roberto Ferreira de Azevedo - OPUS (Areas Verdes)</option>
-                    <option value="Robson Parreiras de Andrade - VSB (Ponte)">Robson Parreiras de Andrade - VSB (Ponte)</option>
-                    <option value="Ronaldo Camilo de Sousa - Progen">Ronaldo Camilo de Sousa - Progen</option>
-                    <option value="Sebastião Félix Gonçalves - OPUS (Eletrica)">Sebastião Félix Gonçalves - OPUS (Eletrica)</option>
-                    <option value="Sergio Antônio da Silva - OPUS (Areas Verdes)">Sergio Antônio da Silva - OPUS (Areas Verdes)</option>
-                    <option value="Sidney Vieira Aureliano - VSB">Sidney Vieira Aureliano - VSB</option>
-                    <option value="Silvan Souza Moura - HTG">Silvan Souza Moura - HTG</option>
-                    <option value="Thalles Jander da Silva Assunção - MEC">Thalles Jander da Silva Assunção - MEC</option>
-                    <option value="Thiago Augusto de Souza Miranda - UPTEC">Thiago Augusto de Souza Miranda - UPTEC</option>
-                    <option value="Tiago Correa Andrade - ISQ">Tiago Correa Andrade - ISQ</option>
-                    <option value="Tiago Costa Ribeiro - Rocket">Tiago Costa Ribeiro - Rocket</option>
-                    <option value="Valdson Ferreira da Silva - HTG">Valdson Ferreira da Silva - HTG</option>
-                    <option value="Valter da Silva Santos - OPUS (Eletrica)">Valter da Silva Santos - OPUS (Eletrica)</option>
-                    <option value="Vanderlei da Silva Santos - UPTEC">Vanderlei da Silva Santos - UPTEC</option>
-                    <option value="Vinicius dos Santos Lopes - VSB (Ponte)">Vinicius dos Santos Lopes - VSB (Ponte)</option>
-                    <option value="Wanderley Ferreira Santos - Progen">Wanderley Ferreira Santos - Progen</option>
-                    <option value="Washington Luiz de Paula - VSB (Ponte)">Washington Luiz de Paula - VSB (Ponte)</option>
-                    <option value="Wenderson Bessa - ISQ">Wenderson Bessa - ISQ</option>
-                    <option value="Wesley Gabriel dos Santos - OPUS (Eletrica)">Wesley Gabriel dos Santos - OPUS (Eletrica)</option>
-                    <option value="Willer Camilo de Amorim Junior - VSB">Willer Camilo de Amorim Junior - VSB</option>
-                  </select>
-                </div>
-
-                <div className="label">RESPONSÁVEL / SOLICITANTE</div>
-                <div className="campo">
-                  <input onChange={e => setResponsavel(e.target.value)} />
-                </div>
-
-                <div className="label">ÁREA DO RESPONSÁVEL</div>
-                <div className="campo">
-                  <input onChange={e => setAreaResponsavel(e.target.value)} />
-                </div>
-
-                <div className="label">ÁREA E LOCAL DA ATIVIDADE</div>
-                <div className="campo">
-                  <input onChange={e => setLocalAtividade(e.target.value)} />
-                </div>
-
-                <div className="label">PEP / ORDEM</div>
-                <div className="campo">
-                  <input onChange={e => setPep(e.target.value)} />
-                </div>
-
               </div>
 
               <button className="btn-solicitar" onClick={confirmarSolicitacao}>
@@ -388,14 +298,6 @@ export default function App() {
         {tela === "calendario" && renderCalendario()}
         {tela === "programacoes" && renderProgramacoes()}
 
-      </div>
-
-      <div className="footer">
-        <p>Desenvolvido por: Samuel Braga</p>
-        <p>
-          Em caso de dúvidas: Mattheus Simões – Cel.: 31 9660-7206 /
-          Samuel Braga – 31 97314-3884
-        </p>
       </div>
     </>
   );
