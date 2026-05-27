@@ -14,7 +14,6 @@ export default function App() {
   const [areaResponsavel, setAreaResponsavel] = useState("");
   const [localAtividade, setLocalAtividade] = useState("");
   const [pep, setPep] = useState("");
-  const [turno, setTurno] = useState(""); // ✅ NOVO
 
   const [programacoes, setProgramacoes] = useState<any[]>([]);
 
@@ -41,21 +40,18 @@ export default function App() {
     if (
       !modelo || !dataAtividade || !atividade ||
       !operador || !responsavel ||
-      !areaResponsavel || !localAtividade || !pep || !turno
+      !areaResponsavel || !localAtividade || !pep
     ) {
       alert("Preencha todos os campos.");
       return;
     }
 
     const conflito = programacoes.some(
-      p =>
-        p.modelo === modelo &&
-        p.dataAtividade === dataAtividade &&
-        p.turno === turno
+      p => p.modelo === modelo && p.dataAtividade === dataAtividade
     );
 
     if (conflito) {
-      alert("⚠ Data já reservada para esse turno!");
+      alert("⚠ Data já reservada!");
       return;
     }
 
@@ -71,7 +67,6 @@ export default function App() {
       areaResponsavel,
       localAtividade,
       pep,
-      turno, // aqui a pessoa vai selecionar o turno e muda automatico
       criadoEm: new Date()
     });
 
@@ -80,40 +75,9 @@ export default function App() {
     carregarProgramacoes();
   }
 
-  // ✅ CALENDÁRIO POR TURNO
-  function renderCalendarioPorTurno(nomeTurno: string) {
+  function renderCalendario() {
     const dias = 31;
 
-    return (
-      <div>
-        <h3 style={{ marginTop: "20px" }}>{nomeTurno}</h3>
-
-        <div className="grid-calendario">
-          {Array.from({ length: dias }, (_, i) => {
-            const dia = i + 1;
-            const data = `2026-06-${String(dia).padStart(2, "0")}`;
-            const data = `2026-05-${String(dia).padStart(2, "0")}`;
-
-            const reserva = programacoes.find(
-              p =>
-                p.modelo === modelo &&
-                p.dataAtividade === data &&
-                p.turno === nomeTurno
-            );
-
-            return (
-              <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                {dia}/05
-                {reserva && <div>RESERVADO</div>}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
-
-  function renderCalendario() {
     return (
       <>
         <div className="header">
@@ -122,13 +86,25 @@ export default function App() {
         </div>
 
         <div className="calendario-container">
-
           <div className="faixa-modelo">{modelo}</div>
 
-          {renderCalendarioPorTurno("Turno 1")}
-          {renderCalendarioPorTurno("Turno 2")}
-          {renderCalendarioPorTurno("Turno 3")}
+          <div className="grid-calendario">
+            {Array.from({ length: dias }, (_, i) => {
+              const dia = i + 1;
+              const data = `2026-05-${String(dia).padStart(2, "0")}`;
 
+              const reserva = programacoes.find(
+                p => p.modelo === modelo && p.dataAtividade === data
+              );
+
+              return (
+                <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
+                  {dia}/05
+                  {reserva && <div>RESERVADO</div>}
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <div className="acoes-rodape">
@@ -161,8 +137,7 @@ export default function App() {
               <th>RESPONSÁVEL</th>
               <th>ÁREA</th>
               <th>LOCAL</th>
-              <th>PEP</th>
-              <th>TURNO</th> {/* ✅ NOVO */}
+              <th>ORDEM / PEP</th>
             </tr>
           </thead>
           <tbody>
@@ -176,7 +151,6 @@ export default function App() {
                 <td>{p.areaResponsavel}</td>
                 <td>{p.localAtividade}</td>
                 <td>{p.pep}</td>
-                <td>{p.turno}</td> {/* ✅ NOVO */}
               </tr>
             ))}
           </tbody>
@@ -207,15 +181,15 @@ export default function App() {
               <div className="modelos">
 
                 <div className="card">
-                  https://cdn.corenexis.com/files/c/2338645720.png
-                  <h3>800 AJ – 26 METROS</h3>
-                  <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
-                    SOLICITAR
-                  </button>
-                </div>
+                <img src="https://cdn.corenexis.com/files/c/2338645720.png" />
+                <h3>800 AJ – 26 METROS</h3>
+                <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
+                  SOLICITAR
+                </button>
+              </div>
 
                 <div className="card">
-                  https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob
+                  <img src="https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob" />
                   <h3>Z45 – 16 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("Z45 – 16 METROS")}>
                     SOLICITAR
@@ -265,17 +239,6 @@ export default function App() {
 
               <div className="form-grid">
 
-                {/* ✅ NOVO CAMPO TURNO */}
-                <div className="label">TURNO</div>
-                <div className="campo">
-                  <select value={turno} onChange={e => setTurno(e.target.value)}>
-                    <option value="">Selecione o turno</option>
-                    <option value="Turno 1">Turno 1</option>
-                    <option value="Turno 2">Turno 2</option>
-                    <option value="Turno 3">Turno 3</option>
-                  </select>
-                </div>
-
                 <div className="label">DATAS DA ATIVIDADE</div>
                 <div className="campo">
                   <input type="date" onChange={e => setDataAtividade(e.target.value)} />
@@ -289,6 +252,7 @@ export default function App() {
                 <div className="label">OPERADOR E EMPRESA</div>
                 <div className="campo">
                   <select value={operador} onChange={e => setOperador(e.target.value)}>
+                    <option value="">Selecione o operador</option>
                     <option value="">Selecione o operador. Caso haja mais de um, favor informar todos os nomes no e-mail de confirmação da programação.</option>
                     <option value="Adelmo Ricardo dos Santos - VSB">Adelmo Ricardo dos Santos - VSB</option>
                     <option value="Adriano Paixão de Souza - Progen">Adriano Paixão de Souza - Progen</option>
