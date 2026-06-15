@@ -329,6 +329,14 @@ export default function App() {
         {tela === "programacoes" && renderProgramacoes()}
 
       </div>
+
+      <div className="footer">
+        <p>Desenvolvido por: Samuel Braga</p>
+        <p>
+          Em caso de dúvidas: Mattheus Simões – Cel.: 31 9660-7206 /
+          Samuel Braga – 31 97314-3884
+        </p>
+      </div>
     </>
   );
 }
