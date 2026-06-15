@@ -236,7 +236,7 @@ export default function App() {
 
               <div className="modelos">
                 <div className="card">
-                  <img src="https://cdn.corenexis.com/files/c/2338645720.png"/>
+                  <img src="https://abstract-rose-t6ggdler.edgeone.app/Designer%20(3).png"/>
                   <h3>800 AJ – 26 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
                     SOLICITAR
