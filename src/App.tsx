@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { db } from "./firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -19,6 +18,7 @@ export default function App() {
 
   const [turno, setTurno] = useState("");
 
+  // ✅ CORREÇÃO AQUI
   const [programacoes, setProgramacoes] = useState<any[]>([]);
 
   async function carregarProgramacoes() {
@@ -82,6 +82,7 @@ export default function App() {
 
     carregarProgramacoes();
   }
+
 
   function renderCalendario() {
     const dias = 30;
@@ -313,8 +314,7 @@ export default function App() {
                 <div className="campo">
                   <input onChange={e => setPep(e.target.value)} />
                 </div>
-
-              
+                
                 </div>
 
               <button className="btn-solicitar" onClick={confirmarSolicitacao}>
