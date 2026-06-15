@@ -27,7 +27,6 @@ export default function App() {
     setProgramacoes(lista);
   }
 
-  // ✅ CORRIGIDO (recarrega ao trocar tela)
   useEffect(() => {
     carregarProgramacoes();
   }, [tela]);
@@ -50,7 +49,7 @@ export default function App() {
       return;
     }
 
-    // ✅ CORRIGIDO (agora considera turno)
+    // ✅ CORREÇÃO 2 (agora considera turno)
     const conflito = programacoes.some(
       p =>
         p.modelo === modelo &&
@@ -82,9 +81,6 @@ export default function App() {
     alert(`✅ Reserva realizada!\nID: ${id}`);
 
     carregarProgramacoes();
-
-    // ✅ EXTRA (volta pro calendário automaticamente)
-    setTela("calendario");
   }
 
   function renderCalendario() {
@@ -180,106 +176,3 @@ export default function App() {
       </>
     );
   }
-
-  function renderProgramacoes() {
-    return (
-      <>
-        <div className="header">
-          <h1>PROGRAMAÇÕES ID</h1>
-        </div>
-
-        <table border={1} width="100%">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>DATA</th>
-              <th>ATIVIDADE</th>
-              <th>OPERADOR</th>
-              <th>RESPONSÁVEL</th>
-              <th>ÁREA</th>
-              <th>LOCAL</th>
-              <th>ORDEM / PEP</th>
-            </tr>
-          </thead>
-          <tbody>
-            {programacoes.map((p, i) => (
-              <tr key={i}>
-                <td>{p.id}</td>
-                <td>{p.dataAtividade}</td>
-                <td>{p.atividade}</td>
-                <td>{p.operador}</td>
-                <td>{p.responsavel}</td>
-                <td>{p.areaResponsavel}</td>
-                <td>{p.localAtividade}</td>
-                <td>{p.pep}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <br />
-
-        <button className="btn-laranja" onClick={() => setTela("inicio")}>
-          VOLTAR
-        </button>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <div className="app">
-
-        {tela === "inicio" && (
-          <>
-            <div className="header">
-              <h1>SOLICITAR PLATAFORMA</h1>
-              <h2>MILLS</h2>
-            </div>
-
-            <div className="inicio-grid">
-
-              <div className="modelos">
-                <div className="card">
-                  "/>
-                  <h3>800 AJ – 26 METROS</h3>
-                  <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
-                    SOLICITAR
-                  </button>
-                </div>
-
-                <div className="card">
-                  <img src="https://www.image2url.com/r2/default/images/1777469123991-f15ef490-97d8-40a3-9f72-f699e88629d1.blob"/>
-                  <h3>Z45 – 16 METROS</h3>
-                  <button className="btn-verde" onClick={() => setModelo("Z45 – 16 METROS")}>
-                    SOLICITAR
-                  </button>
-                </div>
-              </div>
-
-              <div className="acoes">
-                <p><strong>MODELO SELECIONADO</strong></p>
-                <p>{modelo || "Nenhum"}</p>
-
-                <button className="btn-laranja" disabled={!modelo} onClick={() => setTela("calendario")}>
-                  VISUALIZAR CALENDÁRIO
-                </button>
-
-                <button className="btn-laranja" disabled={!modelo} onClick={() => setTela("formulario")}>
-                  SOLICITAR MODELO
-                </button>
-              </div>
-
-            </div>
-          </>
-        )}
-
-        {/* 🔴 resto continua igual (formulário não mudou) */}
-
-        {tela === "calendario" && renderCalendario()}
-        {tela === "programacoes" && renderProgramacoes()}
-
-      </div>
-    </>
-  );
-}
