@@ -222,7 +222,15 @@ function renderProgramacoes() {
           </thead>
 
           <tbody>
-            {programacoes.map((p, i) => (
+  {programacoes
+    .filter(p =>
+      (p.responsavel || "").toLowerCase().includes(filtroResponsavel.toLowerCase()) &&
+      (p.modelo || "").toLowerCase().replace(/\s|–/g, "").includes(
+        filtroModelo.toLowerCase().replace(/\s|–/g, "")
+      ) &&
+      (p.pep || "").toLowerCase().includes(filtroPep.toLowerCase())
+    )
+    .map((p, i) => (
               <tr key={i}>
                 <td>{p.id}</td>
                 <td>{p.dataAtividade}</td>
