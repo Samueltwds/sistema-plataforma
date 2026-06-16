@@ -19,6 +19,11 @@ export default function App() {
   const [turno, setTurno] = useState(""); // ✅ ADICIONADO
 
   const [programacoes, setProgramacoes] = useState<any[]>([]);
+  
+  const [filtroResponsavel, setFiltroResponsavel] = useState("");
+  const [filtroModelo, setFiltroModelo] = useState("");
+  const [filtroPep, setFiltroPep] = useState("");
+
 
   async function carregarProgramacoes() {
     const snapshot = await getDocs(collection(db, "programacoes"));
@@ -176,15 +181,33 @@ export default function App() {
   );
 }
 
-  function renderProgramacoes() {
+  
+function renderProgramacoes() {
     return (
       <>
         <div className="header">
           <h1>PROGRAMAÇÕES ID</h1>
         </div>
+        
+<div style={{ marginBottom: "10px" }}>
+          <input
+            placeholder="Responsável"
+            onChange={e => setFiltroResponsavel(e.target.value)}
+            style={{ marginRight: "8px" }}
+          />
+          <input
+            placeholder="Modelo"
+            onChange={e => setFiltroModelo(e.target.value)}
+            style={{ marginRight: "8px" }}
+          />
+          <input
+            placeholder="PEP"
+            onChange={e => setFiltroPep(e.target.value)}
+          />
+        </div>
 
-        <table border={1} width="100%">
-          <thead>
+        <table border={1} width="100%" style={{ borderCollapse: "collapse" }}>
+          <thead style={{ background: "#ddd" }}>
             <tr>
               <th>ID</th>
               <th>DATA</th>
@@ -194,8 +217,10 @@ export default function App() {
               <th>ÁREA</th>
               <th>LOCAL</th>
               <th>ORDEM / PEP</th>
+              <th>TURNO</th>
             </tr>
           </thead>
+
           <tbody>
             {programacoes.map((p, i) => (
               <tr key={i}>
