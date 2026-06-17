@@ -23,6 +23,7 @@ export default function App() {
   const [filtroResponsavel, setFiltroResponsavel] = useState("");
   const [filtroModelo, setFiltroModelo] = useState("");
   const [filtroPep, setFiltroPep] = useState("");
+  const [filtroData, setFiltroData] = useState("");
 
 
   async function carregarProgramacoes() {
@@ -204,6 +205,13 @@ function renderProgramacoes() {
             placeholder="PEP"
             onChange={e => setFiltroPep(e.target.value)}
           />
+          <input
+           type="date"
+           onChange={e => setFiltroData(e.target.value)}
+           style={{ marginLeft: "8px" }}
+          />
+  
+  
         </div>
 
         <table border={1} width="100%" style={{ borderCollapse: "collapse" }}>
