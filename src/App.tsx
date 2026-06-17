@@ -229,14 +229,15 @@ function renderProgramacoes() {
             </tr>
           </thead>
 
-          <tbody>
+         <tbody>
   {programacoes
     .filter(p =>
       (p.responsavel || "").toLowerCase().includes(filtroResponsavel.toLowerCase()) &&
       (p.modelo || "").toLowerCase().replace(/\s|–/g, "").includes(
         filtroModelo.toLowerCase().replace(/\s|–/g, "")
       ) &&
-      (p.pep || "").toLowerCase().includes(filtroPep.toLowerCase())
+      (p.pep || "").toLowerCase().includes(filtroPep.toLowerCase()) &&
+      (!filtroData || p.dataAtividade === filtroData)
     )
     .map((p, i) => (
               <tr key={i}>
