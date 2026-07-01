@@ -99,7 +99,7 @@ export default function App() {
         <div className="faixa-modelo">{modelo}</div>
 
         {/* ✅ TURNO 1 */}
-        <h3>Turno 1</h3>
+        <h3>Turno 1 (06:00 às 14:00)</h3>
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
@@ -122,7 +122,7 @@ export default function App() {
         </div>
 
         {/* ✅ TURNO 2 */}
-        <h3>Turno 2</h3>
+        <h3>Turno 2 (06:00 às 14:00)</h3>
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
@@ -145,7 +145,7 @@ export default function App() {
         </div>
 
         {/* ✅ TURNO 3 */}
-        <h3>Turno 3</h3>
+        <h3>Turno 3 (06:00 às 14:00)</h3>
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
