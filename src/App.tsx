@@ -86,7 +86,7 @@ export default function App() {
   }
 
   function renderCalendario() {
-  const dias = 30;
+  const dias = 31;
 
   return (
     <>
