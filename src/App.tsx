@@ -56,8 +56,11 @@ export default function App() {
     }
 
     const conflito = programacoes.some(
-      p => p.modelo === modelo && p.dataAtividade === dataAtividade
-    );
+  p =>
+    p.modelo === modelo &&
+    p.dataAtividade === dataAtividade &&
+    p.turno === turno
+);
 
     if (conflito) {
       alert("⚠ Data já reservada!");
