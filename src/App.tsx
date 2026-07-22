@@ -281,7 +281,7 @@ function renderProgramacoes() {
 
               <div className="modelos">
                 <div className="card">
-                  <img src="https://cdn.corenexis.com/f/lhw5SJXturw.png"/>
+                  <img src="https://cdn.imageurlgenerator.com/uploads/b17017b1-b91a-4098-8c4d-ead5ff50ffba.png"/>
                   <h3>800 AJ – 26 METROS</h3>
                   <button className="btn-verde" onClick={() => setModelo("800 AJ – 26 METROS")}>
                     SOLICITAR
