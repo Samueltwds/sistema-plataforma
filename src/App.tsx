@@ -106,7 +106,7 @@ export default function App() {
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
-            const data = `2026-07-${String(dia).padStart(2, "0")}`;
+            const data = `2026-08-${String(dia).padStart(2, "0")}`;
 
             const reserva = programacoes.find(
               p =>
@@ -117,7 +117,7 @@ export default function App() {
 
             return (
               <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                {dia}/07
+                {dia}/08
                 {reserva && <div>RESERVADO</div>}
               </div>
             );
@@ -129,7 +129,7 @@ export default function App() {
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
-            const data = `2026-07-${String(dia).padStart(2, "0")}`;
+            const data = `2026-08-${String(dia).padStart(2, "0")}`;
 
             const reserva = programacoes.find(
               p =>
@@ -140,7 +140,7 @@ export default function App() {
 
             return (
               <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                {dia}/07
+                {dia}/08
                 {reserva && <div>RESERVADO</div>}
               </div>
             );
@@ -152,7 +152,7 @@ export default function App() {
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
-            const data = `2026-07-${String(dia).padStart(2, "0")}`;
+            const data = `2026-08-${String(dia).padStart(2, "0")}`;
 
             const reserva = programacoes.find(
               p =>
@@ -163,7 +163,7 @@ export default function App() {
 
             return (
               <div key={dia} className={`dia ${reserva ? "reservado" : ""}`}>
-                {dia}/07
+                {dia}/08
                 {reserva && <div>RESERVADO</div>}
               </div>
             );
