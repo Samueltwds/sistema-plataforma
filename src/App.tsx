@@ -129,7 +129,7 @@ export default function App() {
         <div className="grid-calendario">
           {Array.from({ length: dias }, (_, i) => {
             const dia = i + 1;
-            const data = `2026-09-${String(dia).padStart(2, "0")}`;
+            const data = `2026-10-${String(dia).padStart(2, "0")}`;
 
             const reserva = programacoes.find(
               p =>
